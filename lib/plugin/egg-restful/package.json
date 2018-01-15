@@ -1,0 +1,11 @@
+{
+  "name": "egg-restful",
+  "version": "0.0.1",
+  "dependencies": {
+    
+  },
+  "eggPlugin": {
+    "name": "restful"
+  },
+  "files": [ "app" ]
+}

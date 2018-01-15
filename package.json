@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "egg": "^2.0.0",
+    "egg-logrotator": "^3.0.1",
     "egg-scripts": "^2.1.0"
   },
   "devDependencies": {
