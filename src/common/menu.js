@@ -1,5 +1,5 @@
 const menuData = [{
-  name: 'dashboard',
+  name: '仪表盘',
   icon: 'dashboard',
   path: 'dashboard',
   children: [{
@@ -112,10 +112,9 @@ const menuData = [{
     path: 'register-result',
   }],
 }, {
-  name: '使用文档',
-  icon: 'book',
-  path: 'http://pro.ant.design/docs/getting-started',
-  target: '_blank',
+  name: '测试',
+  icon: 'scan',
+  path: 'request-test'
 }];
 
 function formatter(data, parentPath = '', parentAuthority) {

@@ -16,6 +16,7 @@
   "html": {
     "template": "./src/index.ejs"
   },
+  "outputPath": "./dist",
   "publicPath": "/",
   "disableDynamicImport": true,
   "hash": true

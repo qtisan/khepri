@@ -1,5 +1,7 @@
 'use strict';
 
+const { join } = require('path');
+
 module.exports = appInfo => {
   const config = exports = {};
 
@@ -19,6 +21,18 @@ module.exports = appInfo => {
 	  rotateDuration: 60000,           // time interval to judge if any file need rotate
 	  maxDays: 31,                     // keep max days log files, default is `31`. Set `0` to keep all logs
   };
+
+
+
+  config.errorMessage = {
+    '404': 'Page not found!',
+    '500': 'server error!'
+  };
+
+  config.static = {
+    prefix: '/',
+    dir: join(appInfo.baseDir, 'dist')
+  }
 
   return config;
 };

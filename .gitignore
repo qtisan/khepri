@@ -22,3 +22,5 @@ _roadhog-api-doc
 npm-debug.log*
 
 /coverage
+
+.vscode/
