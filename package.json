@@ -13,6 +13,7 @@
     "dva-loading": "^1.0.4",
     "egg": "^2.0.0",
     "egg-logrotator": "^3.0.1",
+    "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.1.0",
     "enquire-js": "^0.1.1",
     "fastclick": "^1.0.6",

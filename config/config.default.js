@@ -22,7 +22,17 @@ module.exports = appInfo => {
 	  maxDays: 31,                     // keep max days log files, default is `31`. Set `0` to keep all logs
   };
 
-
+  config.mysql = {
+    client: {
+      host: '127.0.0.1',
+      port: '3306',
+      user: 'root',
+      password: 'toashintel',
+      database: 'khepri_db'
+    },
+    app: true,
+    agent: false,
+  };
 
   config.errorMessage = {
     '404': 'Page not found!',

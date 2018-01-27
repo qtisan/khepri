@@ -12,3 +12,8 @@ exports.logrotator = {
 	enable: true,
 	package: 'egg-logrotator',
 };
+
+exports.mysql = {
+	enable: true,
+	package: 'egg-mysql',
+};

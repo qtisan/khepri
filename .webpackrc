@@ -8,7 +8,14 @@
     "development": {
       "extraBabelPlugins": [
         "dva-hmr"
-      ]
+      ],
+      "proxy": {
+        "/data": {
+          "target": "http://192.168.80.129:7001",
+          "changeOrigin": true,
+          "pathRewrite": { "^/data": "data" }
+        }
+      }
     }
   },
   "ignoreMomentLocale": true,
