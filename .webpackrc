@@ -11,7 +11,7 @@
       ],
       "proxy": {
         "/data": {
-          "target": "http://192.168.80.129:7001",
+          "target": "http://192.168.80.130:7001",
           "changeOrigin": true,
           "pathRewrite": { "^/data": "data" }
         }

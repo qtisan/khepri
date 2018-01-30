@@ -1,6 +1,13 @@
 
 
-
+const defaultResponse = {
+    success: true,
+    message: 'success',
+    body: {
+        foo: 'hello, it is the default!'
+    }
+};
+console.log(JSON.stringify(defaultResponse, null, 4));
 
 
 // function isCnNewID(cid) {

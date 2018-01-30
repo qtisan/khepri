@@ -1,45 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
+import { Bind } from 'lodash-decorators';
 import {
   Row,
   Col, Button,
   Icon, Card,
-  Input,
+  Input, Form,
   Select
 } from 'antd';
 import numeral from 'numeral';
 import Trend from '../components/Trend';
 import NumberInfo from '../components/NumberInfo';
 import { getTimeDistance } from '../utils/utils';
+import prism from 'prismjs';
 
 const InputGroup = Input.Group;
 const TextArea = Input.TextArea;
 const Option = Select.Option;
 
-const defaultResponse = {
-  success: true,
-  message: 'success',
-  body: {
-    foo: 'hello, it is the default!'
-  }
-};
-
-@connect(({ chart, loading }) => ({
-  chart,
-  loading: loading.effects['chart/fetch'],
+@connect((p) => ({
+  responseJson: p['request-test'].responseJson,
+  loading: p.loading.effects['request-test/submit'],
 }))
+@Form.create()
 export default class RequestTest extends Component {
 
-  componentDidMount() {
-    
-  }
-
-  componentWillUnmount() {
-    
+  @Bind()
+  submitRequest() {
+    const { getFieldValue } = this.props.form;
+    this.props.dispatch({
+      type: 'request-test/submit',
+      payload: {
+        url: getFieldValue('url'),
+        method: getFieldValue('method'),
+        body: getFieldValue('body'),
+        headers: getFieldValue('headers')
+      }
+    });
   }
 
   render() {
 
+    const { responseJson, form } = this.props;
+    const { getFieldDecorator } = form;
     return (
       <div>
         <Row gutter={16}>
@@ -50,32 +53,46 @@ export default class RequestTest extends Component {
         <Row gutter={16} style={{padding: 5}}>
           <Col span={24}>
             <InputGroup compact>
-              <Select defaultValue="GET">
-                <Option value="GET">GET</Option>
-                <Option value="POST">POST</Option>
-                <Option value="PUT">PUT</Option>
-                <Option value="DELETE">DELETE</Option>
-                <Option value="HEAD">HEAD</Option>
-              </Select>
-              <Input style={{ width: '50%' }} defaultValue="/data/test" />
-              <Button type="primary">Request!</Button>
+              {getFieldDecorator('method', {
+                initialValue: 'GET'
+              })(
+                <Select>
+                  <Option value="GET">GET</Option>
+                  <Option value="POST">POST</Option>
+                  <Option value="PUT">PUT</Option>
+                  <Option value="DELETE">DELETE</Option>
+                  <Option value="HEAD">HEAD</Option>
+                </Select>
+              )}
+              {getFieldDecorator('url', {
+                initialValue: '/data/users'
+              })(
+                <Input style={{ width: '50%' }} />
+              )}
+              <Button type="primary" onClick={this.submitRequest}>Request!</Button>
             </InputGroup>
           </Col>
         </Row>
         <Row gutter={16} style={{ padding: 5 }}>
           <Col span={16}>
-            <TextArea rows={4} placeholder="request body..."></TextArea>
+            {getFieldDecorator('body')(
+              <TextArea rows={4} placeholder="request body..."></TextArea>
+            )}
           </Col>
           <Col span={8}>
-            <TextArea rows={4} placeholder="request header..."></TextArea>
+            {getFieldDecorator('headers')(
+              <TextArea rows={4} placeholder="request headers..."></TextArea>
+            )}
           </Col>
         </Row>
         <Row gutter={16} style={{ padding: 5 }}>
           <Col span={24}>
             <Card title="Response">
-              <code>
-                {JSON.stringify(defaultResponse)}
-              </code>
+              <pre className="language-js">
+                <code dangerouslySetInnerHTML={{
+                  __html: prism.highlight(responseJson, prism.languages.javascript)
+                }}></code>
+              </pre>
             </Card>
           </Col>
         </Row>

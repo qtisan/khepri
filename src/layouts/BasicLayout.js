@@ -14,7 +14,7 @@ import NotFound from '../routes/Exception/404';
 import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
-import logo from '../assets/logo.svg';
+import logo from '../../app/public/logo/reverse-transparent.svg';
 
 const { Content } = Layout;
 const { AuthorizedRoute } = Authorized;
@@ -92,6 +92,7 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
+    // TODO: fetch from server settings
     let title = 'Ant Design Pro';
     if (routerData[pathname] && routerData[pathname].name) {
       title = `${routerData[pathname].name} - Ant Design Pro`;
@@ -102,6 +103,7 @@ class BasicLayout extends React.PureComponent {
     // According to the url parameter to redirect
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
     const urlParams = new URL(window.location.href);
+    // TODO: fetch from server settings
     const redirect = urlParams.searchParams.get('redirect') || '/dashboard/analysis';
     // Remove the parameters in the url
     urlParams.searchParams.delete('redirect');
@@ -199,6 +201,7 @@ class BasicLayout extends React.PureComponent {
             </div>
             <GlobalFooter
               links={[{
+                // TODO: fetch from server settings
                 key: 'Pro 首页',
                 title: 'Pro 首页',
                 href: 'http://pro.ant.design',

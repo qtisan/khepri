@@ -42,7 +42,15 @@ module.exports = appInfo => {
   config.static = {
     prefix: '/',
     dir: join(appInfo.baseDir, 'dist')
-  }
+  };
+
+  config.utils = {
+    client: {
+      path: [
+        join(__dirname, '../utils')
+      ]
+    }
+  };
 
   return config;
 };

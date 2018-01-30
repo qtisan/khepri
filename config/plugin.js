@@ -1,16 +1,11 @@
 'use strict';
 
-const path = require('path');
+const { join } = require('path');
 
 
-exports.restful = {
+exports.utils = {
 	enable: true,
-	path: path.join(__dirname, '../lib/plugin/egg-restful'),
-};
-
-exports.logrotator = {
-	enable: true,
-	package: 'egg-logrotator',
+	path: join(__dirname, '../lib/plugin/egg-utils'),
 };
 
 exports.mysql = {

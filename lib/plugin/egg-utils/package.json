@@ -1,11 +1,11 @@
 {
-  "name": "egg-restful",
+  "name": "egg-utils",
   "version": "0.0.1",
   "dependencies": {
-    
+    "lodash": "^4.17.4"
   },
   "eggPlugin": {
-    "name": "restful"
+    "name": "utils"
   },
   "files": [ "app" ]
 }
