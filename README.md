@@ -1,33 +1,125 @@
-# khepri
+## Dependencies for
 
-mysqlrest
+### khepri - egg & antd pro sample
+it is a experimental project.
 
-## QuickStart
+### mysql@5.7.20
 
-<!-- add docs here for user -->
+```
+> cd ~/
+> wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb
+> sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb
+> sudo apt-get update
+> sudo apt-get install mysql-server
+```
+configuration.
+1. change the bind address
+```
+> sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+set `bind-address` to `0.0.0.0`
 
-see [egg docs][egg] for more detail.
-
-### Development
-
-```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
+2. grant the access.
+```
+> mysql -u root -p
+mysql> grant all privileges on *.* to root@'%' identified by '[password]';
 ```
 
-### Deploy
+### git@2.16.1
 
-```bash
-$ npm start
-$ npm stop
+```
+> sudo add-apt-repository ppa:git-core/ppa
+> audo apt-get update
+> sudo apt-get install git
 ```
 
-### npm scripts
+### node@8.9.4
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+1. get the install script for `nvm`
+```
+> cd ~/
+> wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+```
 
+2. The script clones the nvm repository to ~/.nvm and adds the source line to your profile (~/.bash_profile, ~/.zshrc, ~/.profile, or ~/.bashrc).
+```
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
 
-[egg]: https://eggjs.org
+3. apply the env
+```
+> source ~/.bashrc # or (~/.bash_profile, ...)
+```
+
+4. install nodejs v8.9.4
+```
+> nvm install 8.9.4
+```
+
+## The `khepri` Project
+
+### clone from git
+```
+> cd /project
+> git clone https://github.com/qtisan/khepri.git
+```
+
+### install the dependencies
+```
+> cd ./khepri
+> npm install
+```
+
+### check out the current branch
+```
+> git checkout inte_antd
+```
+
+### the config in `./config/config.default.js`
+
+### run the application
+
+#### run server for dev
+```
+> npm run dev
+```
+
+#### run the client app
+```
+> npm run web
+```
+
+### samba default for windows
+
+1. configuarion the share folder
+```
+> sudo vi /etc/samba/smb.conf
+```
+add the section to the end of the configuration file.
+```
+# sample
+[projects]
+   comment = Shared Folder require password
+   path = /project
+   public = yes
+   writable = yes
+   valid users = lennon
+   create mask = 0777
+   directory mask = 0777
+   force user = lennon
+   force group = lennon
+   available = yes
+   browseable = yes
+```
+
+2. change password for the access user
+```
+> sudo smbpasswd [username]
+```
+
+3. access the share folder from windows with
+```
+\\ip-address\projects
+```
+
