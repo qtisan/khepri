@@ -2,19 +2,33 @@
 
 const Controller = require('egg').Controller;
 
+const s = {
+	table: `sys_menu`,
+	subTables: [
+		{ table: '', alias: '', pk: '', fk: '' }
+	],
+	fields: ['menu_id', 'menu_name'],
+	limit: [1, 10],
+	order: ['parent_id', 'desc', 'sequence', 'desc'],
+	query: [
+		'menu_id', 'like', 'home%'
+	]
+};
+const sql = 'SELECT ?? FROM ?? WHERE ?? like ? LIMIT ?';
+const param = [s.fields, s.table, s.query[0], s.query[2], s.limit];
+
 class DataController extends Controller {
 
 	// `/table`
 	async index() {
 		const { ctx, app } = this;
 		const { mysql, utils } = app;
-		const user = await mysql.get('user_info', { user_id: '4bf979f6023a11e8b9b8005056c00001' });
 		ctx.body = {
 			params: ctx.params,
 			query: ctx.query,
-			user: user,
-			time: utils.now(),
-			is_cn_new_id: utils.isCnNewID('330382198608110018')
+			sql: mysql.format(sql, param),
+			result: await mysql.query(sql, param),
+			time: utils.now()
 		};
 	}
 

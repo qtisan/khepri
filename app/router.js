@@ -13,5 +13,7 @@ module.exports = app => {
   
   router.resources('data', '/data/:table', controller.data);
 
+  router.post('/auth/login', controller.auth.login);
+
   router.register('*', ALL_METHOD, controller.home.error404);
 };

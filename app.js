@@ -1,4 +1,5 @@
-// app.js
+'use strict';
+
 // const LocalStrategy = require('passport-local').Strategy;
 
 // module.exports = app => {
@@ -17,7 +18,13 @@
 //     }));
 
 //     // 处理用户信息
-//     app.passport.verify(async (ctx, user) => { });
-//     app.passport.serializeUser(async (ctx, user) => { });
-//     app.passport.deserializeUser(async (ctx, user) => { });
+//     app.passport.verify(async (ctx, user) => { 
+        
+//     });
+//     app.passport.serializeUser(async (ctx, user) => { 
+
+//     });
+//     app.passport.deserializeUser(async (ctx, user) => { 
+
+//     });
 // };

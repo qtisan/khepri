@@ -1,13 +1,20 @@
 
 
-const defaultResponse = {
-    success: true,
-    message: 'success',
-    body: {
-        foo: 'hello, it is the default!'
-    }
-};
-console.log(JSON.stringify(defaultResponse, null, 4));
+const { codeToSQL } = require('../utils');
+
+const code = 'vyMyIyM0IyNraGVwcmlfY3J5cHRI.xE-PnErfH1ylt5JynkreBsiZYVWqimJwiVMJt5y0pEJynkW8nZ-wis9lit-JiVMAis9JH5WIt5y0V1WlitR8YVMZnJU3xtTyHyfeuVJypE-5utaOHP9OiEaIitTlpEfIiJfji-whHZx8YVMZnJU3n1Rkt5MOnVrqn1Rkt59yxZWqos0qHE-IiVMUt5y0V1TMHJfwiVMJpACenVWexWfji-U3nVWexWfeuVJypk4OHZWex-fwiVMJpEJynkW8YV7eHE-IiVMUt5y0os9wiVMJt1TUutaJHJwNutROnWflxE-UxtBeH1aOxDWlt5ThiEWxoDTUutaJHJfeuVJyos9Oxta3n1RnxtTyHyfjnZihpkWlitR8YVaxoDWlitR8HEflx-wNn1TUt5yeiZgeHEflx-fji-U3HEflx-fqitiynK9Nn1TUt5-5utaOHywjnV-kiWfjnZihpZywuVxyt5y0tsOjnV-kiWfqYVM_os0jpEJynkW8HZfqiWwlztT8HZfqisMIn59yt5y0tsOkHZfJH-fji-wkHZfJH-fjnZihtsOkHZfJH-feuVJyosNLHZfqiWfeuVJypK4In59yt1TUutaJHIMlxE-UxtBjpEJynkW8nEyeYIMqYVM_Rkx3itRySV-eiKOkHZ-0isMkxEreG2QqH1aJiEWexKMjHIMUHkWypEfIoE-kisMqxEreB27quVxypZylpZMJnENjpE-eiKOhHPOlitLeitXeBs9OiEa8xEywisMPxDHeBAQ9TIUNTsUNTDNIBmX1p2QFp2XNos9wiVMJt5y0pZ9jY5reH1ylxEWwoP0quVM0oEJynkW8H1aOxDWlVlRxpZW9pkL9pK4wiVMJt1TUutaJHJq9tsMyHsMFBs0jRZfIiEWIStTyHtWynZTyVlRxpZayH5BqH5W9xVWeu5WnBWUeiEWluIiqYVJjxmU9pQQQQm-';
+
+console.log(codeToSQL(code));
+
+
+// const defaultResponse = {
+//     success: true,
+//     message: 'success',
+//     body: {
+//         foo: 'hello, it is the default!'
+//     }
+// };
+// console.log(JSON.stringify(defaultResponse, null, 4));
 
 
 // function isCnNewID(cid) {
