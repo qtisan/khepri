@@ -1,51 +1,33 @@
 'use strict';
 
-const { ObjectId } = require('bson');
+const { ObjectID } = require('bson');
 const { encodeByMap, decodeByMap } = require('../lib/crypto/encoding');
 const SqlQuery = require('../lib/query/sqlquery');
+const so = require('../lib/utils/social');
+const al = require('../lib/utils/algorithm');
+const cv = require('../lib/utils/conversion');
 
 const queryEncryptParam = {
     bit: 6,
     map: 'Q4KmX-EDCRopBTGS7as2rWVtuiYnHxz8LOPA0yZk3j6_qwehN9IlUJ51FMbvgfcd'
 };
 
-/** 
-* 检验18位身份证号码（15位号码可以只检测生日是否正确即可） 
-* @author lennon 
-* @param cid 18为的身份证号码 
-* @return Boolean 是否合法 
-**/
-exports.isCnNewID = cid => {
-    let arrExp = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]; //加权因子  
-    let arrValid = [1, 0, "X", 9, 8, 7, 6, 5, 4, 3, 2];//校验码  
-    if (/^\d{17}\d|x$/i.test(cid)) {
-        let sum = 0, idx;
-        for (let i = 0; i < cid.length - 1; i++) {
-            // 对前17位数字与权值乘积求和  
-            sum += parseInt(cid.substr(i, 1), 10) * arrExp[i];
-        }
-        // 计算模（固定算法）  
-        idx = sum % 11;
-        // 检验第18为是否与校验码相等  
-        return arrValid[idx] == cid.substr(17, 1).toUpperCase();
-    }
-    else {
-        return false;
-    }
+const funcs = {
+    ...al, ...so, ...cv,
 };
 
-
 /** 
-* 生成唯一ID，bson中ObjectId的简化版，19位 
+* 生成唯一ID，bson中ObjectID的简化版，19位 
 * @author lennon 
 * @return String ID码 
 **/
-exports.genId = function genId() {
-    return encodeByMap(new ObjectId().toString(), {
+funcs.genId = function genId() {
+    return encodeByMap(new ObjectID().toString(), {
         cipher: null,
         mixed: s => s.substr(1)
     });
 };
+
 
 /** 
 * 加密查询方法 
@@ -53,7 +35,9 @@ exports.genId = function genId() {
 * @param queryString String，查询字符串
 * @return String 加密后的code
 **/
-const encryptQuery = queryString => encodeByMap(queryString, queryEncryptParam);
+funcs.encryptQuery = function encryptQuery(queryString) {
+    return encodeByMap(queryString, queryEncryptParam);
+};
 
 /** 
 * 解密查询方法
@@ -61,7 +45,9 @@ const encryptQuery = queryString => encodeByMap(queryString, queryEncryptParam);
 * @param queryCode String，查询字符串的加密码
 * @return String 解密后的querystring
 **/
-const decryptQuery = queryCode => decodeByMap(queryCode, queryEncryptParam);
+funcs.decryptQuery = function decryptQuery(queryCode) {
+    return decodeByMap(queryCode, queryEncryptParam);
+};
 
 /** 
 * 解析查询字符串为SQL语句的方法
@@ -69,8 +55,9 @@ const decryptQuery = queryCode => decodeByMap(queryCode, queryEncryptParam);
 * @param queryString String，已解密的查询字符串
 * @return String 解析出来的SQL语句
 **/
-const parseQueryString = queryString => new SqlQuery(queryString).build();
-
+funcs.parseQueryString = function parseQueryString(queryString) {
+    return new SqlQuery(queryString).build();
+};
 
 /** 
 * 解密查询字符串，并解析为SQL语句的方法
@@ -78,10 +65,9 @@ const parseQueryString = queryString => new SqlQuery(queryString).build();
 * @param code String，查询字符串的加密码
 * @return String 解密后的SQL语句
 **/
-exports.codeToSQL = code => parseQueryString(decryptQuery(code));
+funcs.codeToSQL = function codeToSQL(code) {
+    return parseQueryString(decryptQuery(code));
+};
 
 
-exports.encryptQuery = encryptQuery;
-exports.decryptQuery = decryptQuery;
-exports.parseQueryString = parseQueryString;
-
+module.exports = funcs;

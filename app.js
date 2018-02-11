@@ -1,30 +1,29 @@
 'use strict';
 
-// const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const qs = require('querystring');
 
-// module.exports = app => {
-//     // 挂载 strategy
-//     app.passport.use(new LocalStrategy({
-//         passReqToCallback: true,
-//     }, (req, username, password, done) => {
-//         // format user
-//         const user = {
-//             provider: 'local',
-//             username,
-//             password,
-//         };
-//         debug('%s %s get user: %j', req.method, req.url, user);
-//         app.passport.doVerify(req, user, done);
-//     }));
+module.exports = app => {
 
-//     // 处理用户信息
-//     app.passport.verify(async (ctx, user) => { 
-        
-//     });
-//     app.passport.serializeUser(async (ctx, user) => { 
+    const { mysql } = app;
 
-//     });
-//     app.passport.deserializeUser(async (ctx, user) => { 
+    app.validator.addRule('json', (rule, value) => {
+        try {
+            JSON.parse(value);
+        } 
+        catch (err) {
+            return 'must be json string';
+        }
+    });
+    
+    app.validator.addRule('encrypt', (rule, value) => {
+        try {
+            app.utils.decryptQuery(value);
+        }
+        catch (err) {
+            return 'invalid query string!'
+        }
+    });
 
-//     });
-// };
+};
+

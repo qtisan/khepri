@@ -1,5 +1,6 @@
-import { fakeAccountLogin } from '../services/api';
+import { authAccount } from '../services/auth';
 import { setAuthority } from '../utils/authority';
+import { message } from 'antd';
 
 export default {
   namespace: 'login',
@@ -9,20 +10,18 @@ export default {
   },
 
   effects: {
-    *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+    *login({ payload: { username, password } }, { call, put }) {
+      const response = yield call(authAccount, { username, password });
+      if (!response || response.status !== 'ok') {
+        response = { status: 401, type: 'account' }
+      }
+      else {
+        window.location.reload();
+      }
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
-      // Login successfully
-      if (response.status === 'ok') {
-        // 非常粗暴的跳转,登陆成功之后权限会变成user或admin,会自动重定向到主页
-        // Login success after permission changes to admin or user
-        // The refresh will automatically redirect to the home page
-        // yield put(routerRedux.push('/'));
-        window.location.reload();
-      }
     },
     *logout(_, { put, select }) {
       try {
@@ -39,7 +38,7 @@ export default {
         yield put({
           type: 'changeLoginStatus',
           payload: {
-            status: false,
+            status: 401,
             currentAuthority: 'guest',
           },
         });

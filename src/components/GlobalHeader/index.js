@@ -54,7 +54,7 @@ export default class GlobalHeader extends PureComponent {
   }
   render() {
     const {
-      currentUser, collapsed, fetchingNotices, isMobile, logo,
+      currentUser, collapsed, fetchingNotices, isMobile, logo, logoMobile, 
       onNoticeVisibleChange, onMenuClick, onNoticeClear,
     } = this.props;
     const menu = (
@@ -67,13 +67,14 @@ export default class GlobalHeader extends PureComponent {
       </Menu>
     );
     const noticeData = this.getNoticeData();
+    const siteLogo = isMobile ? logoMobile : logo;
     return (
       <Header className={styles.header}>
-        {isMobile && (
+        {siteLogo && (
           [
             (
               <Link to="/" className={styles.logo} key="logo">
-                <img src={logo} alt="logo" width="32" />
+                <img src={siteLogo} alt="logo" width={isMobile ? 32 : 140} />
               </Link>
             ),
             <Divider type="vertical" key="line" />,

@@ -14,7 +14,8 @@ import NotFound from '../routes/Exception/404';
 import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
-import logo from '../../app/public/logo/reverse-transparent.svg';
+import logo from '../../app/public/logo/normal-transparent.svg';
+import logoMobile from '../../app/public/logo/normal-individual.svg';
 
 const { Content } = Layout;
 const { AuthorizedRoute } = Authorized;
@@ -103,7 +104,7 @@ class BasicLayout extends React.PureComponent {
     // According to the url parameter to redirect
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
     const urlParams = new URL(window.location.href);
-    // TODO: fetch from server settings
+    // TODO: fetch from server settings, get the first rendered page from menu.js
     const redirect = urlParams.searchParams.get('redirect') || '/dashboard/analysis';
     // Remove the parameters in the url
     urlParams.searchParams.delete('redirect');
@@ -148,30 +149,30 @@ class BasicLayout extends React.PureComponent {
     const bashRedirect = this.getBashRedirect();
     const layout = (
       <Layout>
-        <SiderMenu
+        <GlobalHeader
           logo={logo}
-          // 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
-          // If you do not have the Authorized parameter
-          // you will be forced to jump to the 403 interface without permission
-          Authorized={Authorized}
-          menuData={getMenuData()}
+          logoMobile={logoMobile}
+          currentUser={currentUser}
+          fetchingNotices={fetchingNotices}
+          notices={notices}
           collapsed={collapsed}
-          location={location}
           isMobile={this.state.isMobile}
+          onNoticeClear={this.handleNoticeClear}
           onCollapse={this.handleMenuCollapse}
+          onMenuClick={this.handleMenuClick}
+          onNoticeVisibleChange={this.handleNoticeVisibleChange}
         />
         <Layout>
-          <GlobalHeader
-            logo={logo}
-            currentUser={currentUser}
-            fetchingNotices={fetchingNotices}
-            notices={notices}
+          <SiderMenu
+            // 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
+            // If you do not have the Authorized parameter
+            // you will be forced to jump to the 403 interface without permission
+            Authorized={Authorized}
+            menuData={getMenuData()}
             collapsed={collapsed}
+            location={location}
             isMobile={this.state.isMobile}
-            onNoticeClear={this.handleNoticeClear}
             onCollapse={this.handleMenuCollapse}
-            onMenuClick={this.handleMenuClick}
-            onNoticeVisibleChange={this.handleNoticeVisibleChange}
           />
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <div style={{ minHeight: 'calc(100vh - 260px)' }}>

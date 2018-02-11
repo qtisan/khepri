@@ -33,7 +33,7 @@ export default class RequestTest extends Component {
       payload: {
         url: getFieldValue('url'),
         method: getFieldValue('method'),
-        body: getFieldValue('body'),
+        body: { test: getFieldValue('body') },
         headers: getFieldValue('headers')
       }
     });
@@ -54,7 +54,7 @@ export default class RequestTest extends Component {
           <Col span={24}>
             <InputGroup compact>
               {getFieldDecorator('method', {
-                initialValue: 'GET'
+                initialValue: 'POST'
               })(
                 <Select>
                   <Option value="GET">GET</Option>
@@ -65,7 +65,7 @@ export default class RequestTest extends Component {
                 </Select>
               )}
               {getFieldDecorator('url', {
-                initialValue: '/data/users'
+                initialValue: '/auth/login'
               })(
                 <Input style={{ width: '50%' }} />
               )}

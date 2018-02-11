@@ -5,29 +5,22 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 
 class HomeController extends Controller {
-  async index() {
+  async test() {
   	const { ctx } = this;
-
+		const { _ } = ctx;
     ctx.body = {
-    	is: ctx.isIOS,
+    	now: _.now(),
     	message: ctx.query,
-	    params: ctx.params
+			params: ctx.params,
+			auth: false
     };
   }
 
   async defaults() {
-  	const { ctx } = this;
-  	const html = readFileSync(join(__dirname, '../../dist/index.html')).toString();
-  	ctx.locals.isHTML = true;
-  	ctx.body = html;
-  }
-
-  async error404() {
-  	const { ctx } = this;
-  	ctx.error = {
-  		status: 404,
-  		message: this.app.config.errorMessage['404']
-  	}
+		const { ctx } = this;
+		ctx.status = 200;
+  	// const html = readFileSync(join(__dirname, '../../dist/index.html')).toString();
+  	ctx.body = { msg: 'hello, world!' };
   }
 
 }

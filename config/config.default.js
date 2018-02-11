@@ -8,9 +8,24 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1515815284088_5931';
 
+  config.session = {
+    keys: appInfo.name + '_kiKtD4U_kldJ_IJ917829NHp2k',
+    maxAges: 24 * 3600 * 1000,
+    httpOnly: true,
+    encrypt: true,
+  };
+
   // add your config here
-  config.middleware = [ 'respf' ];
-  config.respf = {};
+  config.middleware = ['headers', 'notFound'];
+  config.headers = {
+    type: 'application/json; charset=utf-8'
+  };
+
+  config.security = {
+    csrf: {
+      ignore: ctx => ctx.ip.indexOf('192.168.') !== -1
+    }
+  };
 
   config.logrotator = {
 	  filesRotateByHour: [],           // list of files that will be rotated by hour
@@ -34,9 +49,16 @@ module.exports = appInfo => {
     agent: false,
   };
 
-  config.errorMessage = {
-    '404': 'Page not found!',
-    '500': 'server error!'
+  config.onerror = {
+    all(err, ctx) {
+      if (ctx.status === 422) {
+        const { query, body } = ctx.request;
+        ctx.stat(2001, { query, body });
+      }
+      ctx.status = 200;
+      ctx.type = 'application/json; charset=utf-8';
+      ctx.body = JSON.stringify(ctx.body);
+    }
   };
 
   config.static = {
