@@ -19,6 +19,8 @@ module.exports = app => {
       [controller.passport.local.login],
     'POST /passport/local/logout':
       [controller.passport.local.logout],
+    'POST /passport/local/current':
+      [controller.passport.local.current],
     'POST /preset/menu/get-menus-by-role': 
       [controller.preset.menu.getMenusByRole],
     'ALL /data/:table': 

@@ -20,7 +20,13 @@
           "changeOrigin": true,
           "pathRewrite": { "^/passport": "passport" }
         }
-      }
+      },
+      "outputPath": "./dist",
+      "publicPath": "/"
+    },
+    "production": {
+      "outputPath": "./dist",
+      "publicPath": "/assets/"
     }
   },
   "ignoreMomentLocale": true,
@@ -28,8 +34,6 @@
   "html": {
     "template": "./src/index.ejs"
   },
-  "outputPath": "./dist",
-  "publicPath": "/",
   "disableDynamicImport": true,
   "hash": true
 }

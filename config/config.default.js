@@ -16,10 +16,7 @@ module.exports = appInfo => {
   };
 
   // add your config here
-  config.middleware = ['headers', 'notFound'];
-  config.headers = {
-    type: 'application/json; charset=utf-8'
-  };
+  config.middleware = ['headers', 'notFound', 'onerror'];
 
   config.security = {
     csrf: {
@@ -51,18 +48,17 @@ module.exports = appInfo => {
 
   config.onerror = {
     all(err, ctx) {
-      if (ctx.status === 422) {
-        const { query, body } = ctx.request;
-        ctx.stat(2001, { query, body });
-      }
+      console.log('===================');
+      const { query, body } = ctx.request;
+      ctx.stat(2001, { query, body });
       ctx.status = 200;
       ctx.type = 'application/json; charset=utf-8';
-      ctx.body = JSON.stringify(ctx.body);
+      // ctx.body = JSON.stringify(ctx.body);
     }
   };
 
   config.static = {
-    prefix: '/',
+    prefix: '/assets/',
     dir: join(appInfo.baseDir, 'dist')
   };
 

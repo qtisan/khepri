@@ -19,8 +19,8 @@ class HomeController extends Controller {
   async defaults() {
 		const { ctx } = this;
 		ctx.status = 200;
-  	// const html = readFileSync(join(__dirname, '../../dist/index.html')).toString();
-  	ctx.body = { msg: 'hello, world!' };
+		ctx.html = readFileSync(join(__dirname, '../../dist/index.html')).toString();
+  	// ctx.body = { msg: 'hello, world!' };
   }
 
 }

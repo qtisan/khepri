@@ -9,12 +9,12 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
 @connect(({ login, loading }) => ({
   login,
-  submitting: loading.effects['login/login'],
+  submitting: loading.effects['login/login']
 }))
 export default class LoginPage extends Component {
   state = {
     type: 'account',
-    autoLogin: true,
+    autoLogin: true
   }
 
   onTabChange = (type) => {
@@ -32,6 +32,12 @@ export default class LoginPage extends Component {
         },
       });
     }
+  }
+
+  checkLogin = () => {
+    this.props.dispatch({
+      type: 'login/checkLogin'
+    });
   }
 
   changeAutoLogin = (e) => {
@@ -61,7 +67,7 @@ export default class LoginPage extends Component {
               login.status === 401 &&
               login.type === 'account' &&
               !login.submitting &&
-              this.renderMessage('账户或密码错误（admin/888888）')
+              this.renderMessage(login.message)
             }
             <UserName name="username" placeholder="admin/user" />
             <Password name="password" placeholder="888888/123456" />

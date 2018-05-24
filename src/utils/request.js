@@ -39,14 +39,15 @@ function checkStatus(response) {
 }
 
 function encryptBody(body) {
-  const {username, password, query} = body;
+  const _body = body || {};
+  const {username, password, query} = _body;
   if (username && password) {
-    body.password = encryptQuery(stringify({ username, password: md5(password) }));
+    _body.password = encryptQuery(stringify({ username, password: md5(password) }));
   }
   if (query) {
-    body.query = encryptQuery(query);
+    _body.query = encryptQuery(query);
   }
-  return JSON.stringify(body);
+  return JSON.stringify(_body);
 }
 
 /**
@@ -99,4 +100,11 @@ export default function request(url, options) {
         dispatch(routerRedux.push('/exception/404'));
       }
     });
+}
+
+export function post(url, data) {
+  return request(url, {
+    method: 'POST',
+    body: data
+  });
 }

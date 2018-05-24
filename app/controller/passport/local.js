@@ -13,7 +13,8 @@ class PassportController extends Controller {
         await local.deserializeUser();
         const { user } = ctx.state;
         ctx.data({
-            type, ...user // TODO: should filter the user field to client.
+            type, ...user, // TODO: should filter the user field to client.
+            currentAuthority: 'guest'
         });
     }
 
@@ -21,6 +22,12 @@ class PassportController extends Controller {
         const { ctx } = this;
         ctx.service.passport.local.logout();
         ctx.data({ action: 'logout' });
+    }
+
+    async current() {
+        const { ctx } = this;
+        await ctx.service.passport.local.deserializeUser();
+        ctx.data(ctx.state.user);
     }
 
 }

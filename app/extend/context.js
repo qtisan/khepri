@@ -28,13 +28,23 @@ module.exports = {
 
     set body(v) {
         const d = this._getData();
-        const j = this.app.utils.parseJSON(v);
-        if (j) {
+        const j = typeof v === 'string' ? this.app.utils.parseJSON(v) : v;
+        if (!j || v == j) {
             this[DATA] = v;
         }
         else {
-            d.data = v;
+            d.data = j;
         }
+        this._html = false;
+    },
+
+    get html() {
+        return this._html ? this[DATA] : `<h1>Html String not set. see \`ctx.html\`</h1>`;
+    },
+
+    set html(v) {
+        this[DATA] = typeof v === 'string' ? v : '<h1>Error HTML String!</h1>';
+        this._html = true;
     },
 
     get error() {
