@@ -10,6 +10,16 @@
         "dva-hmr"
       ],
       "proxy": {
+        "/test": {
+          "target": "http://192.168.80.130:7001",
+          "changeOrigin": true,
+          "pathRewrite": { "^/test": "test" }
+        },
+        "/assets": {
+          "target": "http://192.168.80.130:7001",
+          "changeOrigin": true,
+          "pathRewrite": { "^/assets": "assets" }
+        },
         "/data": {
           "target": "http://192.168.80.130:7001",
           "changeOrigin": true,
@@ -19,6 +29,11 @@
           "target": "http://192.168.80.130:7001",
           "changeOrigin": true,
           "pathRewrite": { "^/passport": "passport" }
+        },
+        "/preset": {
+          "target": "http://192.168.80.130:7001",
+          "changeOrigin": true,
+          "pathRewrite": { "^/preset": "preset" }
         }
       },
       "outputPath": "./dist",

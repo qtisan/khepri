@@ -27,7 +27,7 @@ export default {
         type: 'changeLoginStatus',
         payload: response.data,
       });
-      console.log(response.data);
+      // console.log(response.data);
       if (response.status === 'ok') {
         window.location.reload();
       }

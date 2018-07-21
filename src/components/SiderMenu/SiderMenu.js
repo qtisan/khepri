@@ -40,7 +40,7 @@ export default class SiderMenu extends PureComponent {
     const snippets = pathname.split('/').slice(1, -1);
     const currentPathSnippets = snippets.map((item, index) => {
       const arr = snippets.filter((_, i) => i <= index);
-      return arr.join('/');
+      return `/${arr.join('/')}`;
     });
     let currentMenuSelectedKeys = [];
     currentPathSnippets.forEach((item) => {
@@ -65,16 +65,16 @@ export default class SiderMenu extends PureComponent {
   }
   getSelectedMenuKeys = (path) => {
     const flatMenuKeys = this.getFlatMenuKeys(this.menus);
-    if (flatMenuKeys.indexOf(path.replace(/^\//, '')) > -1) {
-      return [path.replace(/^\//, '')];
+    if (flatMenuKeys.indexOf(path) > -1) {
+      return [path];
     }
-    if (flatMenuKeys.indexOf(path.replace(/^\//, '').replace(/\/$/, '')) > -1) {
-      return [path.replace(/^\//, '').replace(/\/$/, '')];
+    if (flatMenuKeys.indexOf(path.replace(/\/$/, '')) > -1) {
+      return [path.replace(/\/$/, '')];
     }
     return flatMenuKeys.filter((item) => {
       const itemRegExpStr = `^${item.replace(/:[\w-]+/g, '[\\w-]+')}$`;
       const itemRegExp = new RegExp(itemRegExpStr);
-      return itemRegExp.test(path.replace(/^\//, '').replace(/\/$/, ''));
+      return itemRegExp.test(path.replace(/\/$/, ''));
     });
   }
   /**

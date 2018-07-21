@@ -21,7 +21,7 @@ describe('test/app/controller/passport/local.test.js', () => {
         assert(result.status === 200);
         assert(data.type === 'account');
         assert(data.id_card_no === khepri.id_card_no);
-        console.log(data);
+        // console.log(data);
     });
 
     it('should the error account or password message.', async () => {
@@ -35,7 +35,7 @@ describe('test/app/controller/passport/local.test.js', () => {
                 type: 'account',
                 remember: false
             });
-        console.log(result.body);
+        // console.log(result.body);
         assert(result.body);
         // const data = result.body.data;
         // assert(result.status === 200);

@@ -59,7 +59,10 @@ module.exports = appInfo => {
 
   config.static = {
     prefix: '/assets/',
-    dir: join(appInfo.baseDir, 'dist')
+    dir: [
+      join(appInfo.baseDir, 'dist'),
+      join(appInfo.baseDir, 'public')
+    ]
   };
 
   config.utils = {
@@ -69,6 +72,8 @@ module.exports = appInfo => {
       ]
     }
   };
+
+  config.adminRoleId = 'du85ep8nvjhtvyrdb6d';
 
   return config;
 };

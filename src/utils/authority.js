@@ -11,3 +11,15 @@ export function getAuthority() {
 export function setAuthority(authority) {
   return localStorage.setItem('antd-pro-authority', authority);
 }
+
+export function checkAuthority(authority) {
+  return currentAuthority => {
+    const result = !!((currentAuthority || 'guest').split(',').filter(
+      ca => (authority || 'dugkarn8vzmr9djej9e').indexOf(ca) !== -1).length);
+    if (!result) {
+      // console.log(`current: ${currentAuthority}`);
+      // console.log(`authority: ${authority}`);
+    }
+    return result;
+  }
+}

@@ -1,102 +1,199 @@
-const menuData = [{
-  name: '仪表盘',
-  icon: 'dashboard',
-  path: 'dashboard',
-  children: [{
-    name: '分析页',
-    path: 'analysis',
-  }, {
-    name: '监控页',
-    path: 'monitor',
-  }, {
-    name: '工作台',
-    path: 'workplace',
-    // hideInMenu: true,
-  }],
-}, {
-  name: '表单页',
-  icon: 'form',
-  path: 'form',
-  children: [{
-    name: '基础表单',
-    path: 'basic-form',
-  }, {
-    name: '分步表单',
-    path: 'step-form',
-  }, {
-    name: '高级表单',
-    authority: 'admin',
-    path: 'advanced-form',
-  }],
-}, {
-  name: '列表页',
-  icon: 'table',
-  path: 'list',
-  children: [{
-    name: '查询表格',
-    path: 'table-list',
-  }, {
-    name: '标准列表',
-    path: 'basic-list',
-  }, {
-    name: '卡片列表',
-    path: 'card-list',
-  }, {
-    name: '搜索列表',
-    path: 'search',
-    children: [{
-      name: '搜索列表（文章）',
-      path: 'articles',
-    }, {
-      name: '搜索列表（项目）',
-      path: 'projects',
-    }, {
-      name: '搜索列表（应用）',
-      path: 'applications',
-    }],
-  }],
-}, {
-  name: '详情页',
-  icon: 'profile',
-  path: 'profile',
-  children: [{
-    name: '基础详情页',
-    path: 'basic',
-  }, {
-    name: '高级详情页',
-    path: 'advanced',
-    authority: 'admin',
-  }],
-}, {
-  name: '结果页',
-  icon: 'check-circle-o',
-  path: 'result',
-  children: [{
-    name: '成功',
-    path: 'success',
-  }, {
-    name: '失败',
-    path: 'fail',
-  }],
-}, {
-  name: '异常页',
-  icon: 'warning',
-  path: 'exception',
-  children: [{
-    name: '403',
-    path: '403',
-  }, {
-    name: '404',
-    path: '404',
-  }, {
-    name: '500',
-    path: '500',
-  }, {
-    name: '触发异常',
-    path: 'trigger',
-    hideInMenu: true,
-  }],
-}, {
+import { checkAuthority } from '../utils/authority';
+
+const menuData = [
+  {
+    "name": "首页",
+    "icon": "home",
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+    "path": "home",
+    "menu_id": "home",
+    "parent_id": null,
+    "children": [
+      {
+        "name": "仪表盘",
+        "icon": "dashboard",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "dashboard",
+        "menu_id": "home-dashboard",
+        "parent_id": "home"
+      }
+    ]
+  },
+  {
+    "name": "系统",
+    "icon": "setting",
+    "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf,du8dyhkb83etve_agdh",
+    "path": "system",
+    "menu_id": "system",
+    "parent_id": null,
+    "children": [
+      {
+        "name": "用户管理",
+        "icon": "team",
+        "authority": "du85ep8nvjhtvyrdb6d,du8dyhkb83etve_agdh",
+        "path": "user",
+        "menu_id": "system-user",
+        "parent_id": "system",
+        "children": [
+          {
+            "name": "所有用户",
+            "icon": null,
+            "authority": "du85ep8nvjhtvyrdb6d,du8dyhkb83etve_agdh",
+            "path": "users",
+            "menu_id": "system-user-users",
+            "parent_id": "system-user"
+          },
+          {
+            "name": "用户组",
+            "icon": null,
+            "authority": "du85ep8nvjhtvyrdb6d,du8dyhkb83etve_agdh",
+            "path": "group",
+            "menu_id": "system-user-group",
+            "parent_id": "system-user"
+          }
+        ]
+      },
+      {
+        "name": "权限管理",
+        "icon": "usb",
+        "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf",
+        "path": "privilege",
+        "menu_id": "system-privilege",
+        "parent_id": "system",
+        "children": [
+          {
+            "name": "菜单管理",
+            "icon": null,
+            "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf",
+            "path": "menu",
+            "menu_id": "system-privilege-menu",
+            "parent_id": "system-privilege"
+          },
+          {
+            "name": "系统角色",
+            "icon": null,
+            "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf",
+            "path": "role",
+            "menu_id": "system-privilege-role",
+            "parent_id": "system-privilege"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "用户",
+    "icon": "user",
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+    "path": "user",
+    "menu_id": "user",
+    "parent_id": null,
+    "children": [
+      {
+        "name": "用户概要",
+        "icon": "dashboard",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "dashboard",
+        "menu_id": "user-dashboard",
+        "parent_id": "user"
+      },
+      {
+        "name": "个人信息",
+        "icon": "idcard",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "info",
+        "menu_id": "user-info",
+        "parent_id": "user",
+        "children": [
+          {
+            "name": "更新信息",
+            "icon": null,
+            "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+            "path": "update",
+            "menu_id": "user-info-update",
+            "parent_id": "user-info"
+          },
+          {
+            "name": "修改密码",
+            "icon": null,
+            "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+            "path": "password",
+            "menu_id": "user-info-password",
+            "parent_id": "user-info"
+          }
+        ]
+      },
+      {
+        "name": "我的消息",
+        "icon": "mail",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "message",
+        "menu_id": "user-message",
+        "parent_id": "user",
+        "children": [
+          {
+            "name": "收件箱",
+            "icon": null,
+            "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+            "path": "inbox",
+            "menu_id": "user-message-inbox",
+            "parent_id": "user-message"
+          },
+          {
+            "name": "已发送",
+            "icon": null,
+            "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+            "path": "sent",
+            "menu_id": "user-message-sent",
+            "parent_id": "user-message"
+          },
+          {
+            "name": "标签分类",
+            "icon": null,
+            "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+            "path": "tag",
+            "menu_id": "user-message-tag",
+            "parent_id": "user-message"
+          }
+        ]
+      },
+      {
+        "name": "联系人",
+        "icon": "contacts",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "contact",
+        "menu_id": "user-contact",
+        "parent_id": "user"
+      },
+      {
+        "name": "我的文件",
+        "icon": "file",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "attach",
+        "menu_id": "user-attach",
+        "parent_id": "user"
+      },
+      {
+        "name": "系统通知",
+        "icon": "bulb",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "notice",
+        "menu_id": "user-notice",
+        "parent_id": "user"
+      },
+      {
+        "name": "我的设置",
+        "icon": "setting",
+        "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d",
+        "path": "setting",
+        "menu_id": "user-setting",
+        "parent_id": "user"
+      }
+    ]
+  }
+];
+
+menuData.push({
   name: '账户',
   icon: 'user',
   path: 'user',
@@ -112,23 +209,24 @@ const menuData = [{
     path: 'register-result',
   }],
 }, {
-  name: '测试',
-  icon: 'scan',
-  path: 'request-test'
-}];
+    name: '测试',
+    icon: 'scan',
+    path: 'request-test'
+  });
 
-function formatter(data, parentPath = '', parentAuthority) {
+function formatter(withAuth, data, parentPath = '/', parentAuthority) {
   return data.map((item) => {
+    let au = item.authority || parentAuthority || null;
     const result = {
       ...item,
       path: `${parentPath}${item.path}`,
-      authority: item.authority || parentAuthority,
+      authority: withAuth ? checkAuthority(au) : au,
     };
     if (item.children) {
-      result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
+      result.children = formatter(withAuth, item.children, `${parentPath}${item.path}/`, item.authority);
     }
     return result;
   });
 }
 
-export const getMenuData = () => formatter(menuData);
+export const getMenuData = withAuth => formatter(withAuth, menuData);

@@ -58,7 +58,7 @@ class UserLayout extends React.PureComponent {
                 />
               )
             )}
-            <Redirect exact from="/user" to="/user/login" />
+            <Redirect exact from="/passport" to="/passport/login" />
           </Switch>
           <GlobalFooter className={styles.footer} links={links} copyright={copyright} />
         </div>

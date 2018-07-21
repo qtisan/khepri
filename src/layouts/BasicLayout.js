@@ -13,9 +13,10 @@ import SiderMenu from '../components/SiderMenu';
 import NotFound from '../routes/Exception/404';
 import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
+import { checkAuthority } from '../utils/authority';
 import { getMenuData } from '../common/menu';
-import logo from '../../app/public/logo/normal-transparent.svg';
-import logoMobile from '../../app/public/logo/normal-individual.svg';
+import logo from '../../public/logo/normal-transparent.svg';
+import logoMobile from '../../public/logo/normal-individual.svg';
 
 const { Content } = Layout;
 const { AuthorizedRoute } = Authorized;
@@ -105,7 +106,7 @@ class BasicLayout extends React.PureComponent {
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
     const urlParams = new URL(window.location.href);
     // TODO: fetch from server settings, get the first rendered page from menu.js
-    const redirect = urlParams.searchParams.get('redirect') || '/dashboard/analysis';
+    const redirect = urlParams.searchParams.get('redirect') || '/home/dashboard';
     // Remove the parameters in the url
     urlParams.searchParams.delete('redirect');
     window.history.pushState(null, 'redirect', urlParams.href);
@@ -164,11 +165,8 @@ class BasicLayout extends React.PureComponent {
         />
         <Layout>
           <SiderMenu
-            // 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
-            // If you do not have the Authorized parameter
-            // you will be forced to jump to the 403 interface without permission
             Authorized={Authorized}
-            menuData={getMenuData()}
+            menuData={getMenuData(true)}
             collapsed={collapsed}
             location={location}
             isMobile={this.state.isMobile}
@@ -185,7 +183,7 @@ class BasicLayout extends React.PureComponent {
                         path={item.path}
                         component={item.component}
                         exact={item.exact}
-                        authority={item.authority}
+                        authority={checkAuthority(item.authority)}
                         redirectPath="/exception/403"
                       />
                     )

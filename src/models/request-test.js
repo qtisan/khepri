@@ -20,6 +20,7 @@ export default {
     effects: {
         *submit({ payload }, { call, put }) {
             const json = yield call(req, payload);
+            // console.log(payload);
             yield put({
                 type: 'show',
                 payload: JSON.stringify(json, null, 4)

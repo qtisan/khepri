@@ -4,6 +4,154 @@ import { getMenuData } from './menu';
 
 let routerDataCache;
 
+const routerDefault = [
+  {
+    "router_name": "仪表盘",
+    "router_path": "/home/dashboard",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "首页",
+    "router_path": "/",
+    "component_path": "layouts/BasicLayout",
+    "ref_models": [
+      "user",
+      "login"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "所有用户",
+    "router_path": "/system/user/users",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "du85ep8nvjhtvyrdb6d,du8dyhkb83etve_agdh"
+  },
+  {
+    "router_name": "用户组",
+    "router_path": "/system/user/group",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "du85ep8nvjhtvyrdb6d,du8dyhkb83etve_agdh"
+  },
+  {
+    "router_name": "菜单管理",
+    "router_path": "/system/privilege/menu",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf"
+  },
+  {
+    "router_name": "系统角色",
+    "router_path": "/system/privilege/role",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "du85ep8nvjhtvyrdb6d,du856thfk3fto95_mnf"
+  },
+  {
+    "router_name": "用户概要",
+    "router_path": "/user/dashboard",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "更新信息",
+    "router_path": "/user/info/update",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "修改密码",
+    "router_path": "/user/info/password",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "收件箱",
+    "router_path": "/user/message/inbox",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "已发送",
+    "router_path": "/user/message/sent",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "标签分类",
+    "router_path": "/user/message/tag",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "联系人",
+    "router_path": "/user/contact",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "我的文件",
+    "router_path": "/user/attach",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "系统通知",
+    "router_path": "/user/notice",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  },
+  {
+    "router_name": "我的设置",
+    "router_path": "/user/setting",
+    "component_path": "routes/Dashboard/Analysis",
+    "ref_models": [
+      "chart"
+    ],
+    "authority": "dugkarn8vzmr9djej9e,du85ep8nvjhtvyrdb6d"
+  }
+];
+
 const modelNotExisted = (app, model) => (
   // eslint-disable-next-line
   !app._models.some(({ namespace }) => {
@@ -73,67 +221,40 @@ function getRouterTable() {
   //   console.log(ctx.keys());
   // })(require.context('../routes', true, /\.js$/));
 
-  return [{
-      router_name: null,
-      router_path: '/',
-      component_path: 'layouts/BasicLayout',
-      ref_models: ['user', 'login'],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/dashboard/analysis',
-      component_path: 'routes/Dashboard/Analysis',
-      ref_models: ['chart'],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/dashboard/monitor',
-      component_path: 'routes/Dashboard/Monitor',
-      ref_models: ['monitor'],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/dashboard/workplace',
-      component_path: 'routes/Dashboard/Workplace',
-      ref_models: ['project', 'activities', 'chart'],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/form/basic-form',
-      component_path: 'routes/Forms/BasicForm',
-      ref_models: ['form'],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/user',
-      component_path: 'layouts/UserLayout',
-      ref_models: [],
-      authority: null
-    }, {
-      router_name: null,
-      router_path: '/user/login',
+  const rs = routerDefault;
+  rs.push({
+    router_name: '授权',
+    router_path: '/passport',
+    component_path: 'layouts/UserLayout',
+    ref_models: [],
+    authority: null
+  }, {
+      router_name: '登陆',
+      router_path: '/passport/login',
       component_path: 'routes/User/Login',
       ref_models: ['login'],
       authority: null
     }, {
-      router_name: null,
-      router_path: '/user/register',
+      router_name: '注册',
+      router_path: '/passport/register',
       component_path: 'routes/User/Register',
       ref_models: ['register'],
       authority: null
     }, {
-      router_name: null,
-      router_path: '/user/register-result',
+      router_name: '注册结果',
+      router_path: '/passport/register-result',
       component_path: 'routes/User/RegisterResult',
       ref_models: [],
       authority: null
     }, {
-      router_name: null,
+      router_name: '请求测试',
       router_path: '/request-test',
       component_path: 'routes/RequestTest',
       ref_models: ['request-test'],
       authority: null
-    },];
+    });
+
+  return rs;
 }
 
 export const getRouterData = (app) => {
@@ -152,7 +273,7 @@ export const getRouterData = (app) => {
   const menuData = getFlatMenuData(getMenuData());
   const routerData = {};
   Object.keys(routerConfig).forEach((item) => {
-    const menuItem = menuData[item.replace(/^\//, '')] || {};
+    const menuItem = menuData[item] || {};
     routerData[item] = {
       ...routerConfig[item],
       name: routerConfig[item].name || menuItem.name,

@@ -5,6 +5,7 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import { getRouterData } from './common/router';
 import Authorized from './utils/Authorized';
+import { checkAuthority } from './utils/authority';
 import styles from './index.less';
 
 const { ConnectedRouter } = routerRedux;
@@ -15,7 +16,7 @@ dynamic.setDefaultLoadingComponent(() => {
 
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
-  const UserLayout = routerData['/user'].component;
+  const UserLayout = routerData['/passport'].component;
   const BasicLayout = routerData['/'].component;
   // TODO: need dynamic generate routes with authentication.
   return (
@@ -23,7 +24,7 @@ function RouterConfig({ history, app }) {
       <ConnectedRouter history={history}>
         <Switch>
           <AuthorizedRoute
-            path="/user"
+            path="/passport"
             render={props => <UserLayout {...props} />}
             authority="guest"
             redirectPath="/"
@@ -31,26 +32,20 @@ function RouterConfig({ history, app }) {
           <AuthorizedRoute
             path="/"
             render={props => <BasicLayout {...props} />}
-            authority={genAuths([
-              'du856thfk3fto95_mnf',
-              'du85ep8nvjhtvyrdb6d',
-              'du85hvovbb6toeslhfk',
-              'du8dbqakyl5tvm3m7oz',
-              'du8dyhkb83etve_agdh',
-              'dugkarn8vzmr9djej9e'
-            ])}
-            redirectPath="/user/login"
+            authority={checkAuthority(
+              'du856thfk3fto95_mnf,' +
+              'du85ep8nvjhtvyrdb6d,' +
+              'du85hvovbb6toeslhfk,' +
+              'du8dbqakyl5tvm3m7oz,' +
+              'du8dyhkb83etve_agdh,' +
+              'dugkarn8vzmr9djej9e,'
+            )}
+            redirectPath="/passport/login"
           />
         </Switch>
       </ConnectedRouter>
     </LocaleProvider>
   );
-}
-
-function genAuths(authoritiy) {
-  return currentAuthority => 
-    !!((currentAuthority || 'guest').split(',').filter(
-      ca => authoritiy.indexOf(ca) !== -1).length);
 }
 
 export default RouterConfig;

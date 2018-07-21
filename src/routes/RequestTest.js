@@ -54,7 +54,7 @@ export default class RequestTest extends Component {
           <Col span={24}>
             <InputGroup compact>
               {getFieldDecorator('method', {
-                initialValue: 'POST'
+                initialValue: 'GET'
               })(
                 <Select>
                   <Option value="GET">GET</Option>
@@ -65,7 +65,7 @@ export default class RequestTest extends Component {
                 </Select>
               )}
               {getFieldDecorator('url', {
-                initialValue: '/auth/login'
+                initialValue: '/test'
               })(
                 <Input style={{ width: '50%' }} />
               )}
